@@ -1,4 +1,4 @@
-package com.example.hotelbook.booking.addBooking;
+package com.example.hotelbook.booking.createbooking;
 
 import com.example.hotelbook.booking.dto.BookingRq;
 

@@ -1,11 +1,10 @@
-package com.example.hotelbook.hotel.getHotel;
+package com.example.hotelbook.hotel.gethotel;
 
 import com.example.hotelbook.hotel.HotelRepository;
 import com.example.hotelbook.hotel.dto.HotelRs;
 import com.example.hotelbook.hotel.mapper.HotelMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.stream.Collectors;

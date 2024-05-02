@@ -1,7 +1,6 @@
-package com.example.hotelbook.booking.getBooking;
+package com.example.hotelbook.guest.getguest;
 
-
-import com.example.hotelbook.booking.dto.BookingRs;
+import com.example.hotelbook.guest.dto.GuestRs;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,19 +10,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping("/guests/")
 @RequiredArgsConstructor
-@RequestMapping("/booking/")
-public class GetBookingController {
+public class GetGuestController {
 
-    private final GetBookingHandler getBookingHandler;
+    private final GetGuestHandler getGuestHandler;
 
     @GetMapping("{id}")
-    public BookingRs getById(@PathVariable Long id){
-        return getBookingHandler.findById(id);
+    public GuestRs getById(@PathVariable Long id){
+        return getGuestHandler.findById(id);
     }
 
     @GetMapping
-    public List<BookingRs> getBookings(){
-        return getBookingHandler.findAll();
+    public List<GuestRs> getAllGuests(){
+        return getGuestHandler.findAll();
     }
 }

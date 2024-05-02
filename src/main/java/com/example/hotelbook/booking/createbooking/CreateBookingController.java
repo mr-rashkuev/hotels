@@ -1,7 +1,7 @@
-package com.example.hotelbook.room.create_room;
+package com.example.hotelbook.booking.createbooking;
 
 
-import com.example.hotelbook.room.dto.RoomRq;
+import com.example.hotelbook.booking.dto.BookingRq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/rooms/")
-public class CreateRoomController {
+@RequestMapping("/booking/")
+public class CreateBookingController {
 
-    private final CreateRoomHandler createRoomHandler;
+    private final CreateBookingHandler createBookingHandler;
 
     @PostMapping
-    public void addRoom(@RequestBody RoomRq roomRq){
-        createRoomHandler.addRoom(roomRq);
+    public void addBooking(@RequestBody BookingRq bookingRq){
+        createBookingHandler.addBooking(bookingRq);
     }
 }

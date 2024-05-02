@@ -16,6 +16,8 @@ import java.time.LocalDate;
 @Getter
 @EqualsAndHashCode
 @ToString
+@Builder
+@AllArgsConstructor
 public class BookingEntity {
     public BookingEntity(GuestEntity guest, RoomEntity room, LocalDate checkIn, LocalDate checkOut) {
         this.guest = guest;

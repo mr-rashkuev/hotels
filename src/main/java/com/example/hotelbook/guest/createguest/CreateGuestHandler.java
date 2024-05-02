@@ -1,4 +1,4 @@
-package com.example.hotelbook.guest.addGuest;
+package com.example.hotelbook.guest.createguest;
 
 import com.example.hotelbook.guest.dto.GuestRq;
 

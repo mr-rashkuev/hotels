@@ -14,6 +14,6 @@ public class BookedRoom {
 
     private Long id;
     private RoomType type;
-    private Long bookedCount;
+    private Long bookedRoomsCount;
 
 }

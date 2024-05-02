@@ -1,4 +1,4 @@
-package com.example.hotelbook.room.create_room;
+package com.example.hotelbook.room.createroom;
 
 import com.example.hotelbook.room.dto.RoomRq;
 

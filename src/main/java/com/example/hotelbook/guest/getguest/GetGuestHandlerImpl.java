@@ -1,4 +1,4 @@
-package com.example.hotelbook.guest.getGuest;
+package com.example.hotelbook.guest.getguest;
 
 import com.example.hotelbook.guest.GuestRepository;
 import com.example.hotelbook.guest.dto.GuestRs;

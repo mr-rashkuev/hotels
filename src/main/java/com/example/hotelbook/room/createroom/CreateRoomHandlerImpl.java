@@ -1,11 +1,10 @@
-package com.example.hotelbook.room.create_room;
+package com.example.hotelbook.room.createroom;
 
 import com.example.hotelbook.hotel.HotelEntity;
 import com.example.hotelbook.hotel.HotelRepository;
 import com.example.hotelbook.room.RoomEntity;
 import com.example.hotelbook.room.RoomRepository;
 import com.example.hotelbook.room.dto.RoomRq;
-import com.example.hotelbook.room.get_room.GetRoomHandler;
 import com.example.hotelbook.room.mapper.RoomMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

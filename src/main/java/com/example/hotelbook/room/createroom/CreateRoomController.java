@@ -1,7 +1,7 @@
-package com.example.hotelbook.guest.addGuest;
+package com.example.hotelbook.room.createroom;
 
 
-import com.example.hotelbook.guest.dto.GuestRq;
+import com.example.hotelbook.room.dto.RoomRq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/guests/")
 @RequiredArgsConstructor
-public class CreateGuestController {
+@RequestMapping("/rooms/")
+public class CreateRoomController {
 
-    private final CreateGuestHandler createGuestHandler;
+    private final CreateRoomHandler createRoomHandler;
 
     @PostMapping
-    public void addGuest(@RequestBody GuestRq guestRq){
-        createGuestHandler.addGuest(guestRq);
+    public void addRoom(@RequestBody RoomRq roomRq){
+        createRoomHandler.addRoom(roomRq);
     }
 }

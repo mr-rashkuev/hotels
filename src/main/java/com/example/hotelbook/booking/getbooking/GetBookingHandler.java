@@ -1,4 +1,4 @@
-package com.example.hotelbook.booking.getBooking;
+package com.example.hotelbook.booking.getbooking;
 
 import com.example.hotelbook.booking.dto.BookingRs;
 

@@ -1,5 +1,6 @@
-package com.example.hotelbook.room.get_room;
+package com.example.hotelbook.room.getroom;
 
+import com.example.hotelbook.room.RoomEntity;
 import com.example.hotelbook.room.RoomRepository;
 import com.example.hotelbook.room.dto.BookedRoom;
 import com.example.hotelbook.room.dto.LocationAndDate;
@@ -10,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -50,29 +50,25 @@ public class GetRoomHandlerImpl implements GetRoomHandler {
 
     @Override
     public List<RoomAvailableRs> getAvailableRooms(LocationAndDate locationAndDate) {
-        Map<Long, Long> bookedRooms = getBookedRooms(locationAndDate).stream().collect(toMap(BookedRoom::getId, BookedRoom::getBookedCount));
-        List<RoomAvailableRs> roomsByCity = getRoomsByCity(locationAndDate.city());
+        Map<Long, Long> bookedRooms = getBookedRooms(locationAndDate).stream().collect(toMap(BookedRoom::getId, BookedRoom::getBookedRoomsCount));
+        List<RoomEntity> roomsByCity = roomRepository.findRoomsByCity(locationAndDate.city());
         List<RoomAvailableRs> roomForBooking = new ArrayList<>();
-        for (RoomAvailableRs roomAvailableRs : roomsByCity) {
-            RoomAvailableRs rs;
-                if (bookedRooms.containsKey(roomAvailableRs.id())) {
-                    if (roomAvailableRs.roomQuantity() - bookedRooms.get(roomAvailableRs.id()) > 0) {
-                        rs = new RoomAvailableRs(
-                                roomAvailableRs.id(),
-                                roomAvailableRs.hotel(),
-                                roomAvailableRs.roomType(),
-                                roomAvailableRs.price(),
-                                (int) (roomAvailableRs.roomQuantity() - bookedRooms.get(roomAvailableRs.id())));
-                        roomForBooking.add(rs);
-                    }
-                }else{ rs = new RoomAvailableRs(
-                        roomAvailableRs.id(),
-                        roomAvailableRs.hotel(),
-                        roomAvailableRs.roomType(),
-                        roomAvailableRs.price(),
-                        roomAvailableRs.roomQuantity());
-                roomForBooking.add(rs);}
+        for (RoomEntity room : roomsByCity) {
+            RoomAvailableRs.RoomAvailableRsBuilder rsBuilder = RoomAvailableRs.builder()
+                    .id(room.getId())
+                    .hotel(room.getHotel().getName())
+                    .roomType(room.getRoomType())
+                    .price(room.getPrice());
+            if (bookedRooms.containsKey(room.getId())) {
+                if (room.getRoomQuantity() - bookedRooms.get(room.getId()) > 0) {
+                        RoomAvailableRs rs = rsBuilder.roomQuantity(((int) (room.getRoomQuantity() - bookedRooms.get(room.getId())))).build();
+                    roomForBooking.add(rs);
+                }
+            } else {
+                RoomAvailableRs rs = rsBuilder.roomQuantity(room.getRoomQuantity()).build();
+                roomForBooking.add(rs);
             }
+        }
         return roomForBooking;
     }
 }

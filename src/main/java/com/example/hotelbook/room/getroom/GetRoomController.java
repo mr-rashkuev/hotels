@@ -1,6 +1,5 @@
-package com.example.hotelbook.room.get_room;
+package com.example.hotelbook.room.getroom;
 
-import com.example.hotelbook.room.dto.BookedRoom;
 import com.example.hotelbook.room.dto.LocationAndDate;
 import com.example.hotelbook.room.dto.RoomAvailableRs;
 import com.example.hotelbook.room.dto.RoomRs;
