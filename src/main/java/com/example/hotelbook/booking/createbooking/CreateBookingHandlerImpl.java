@@ -3,6 +3,7 @@ package com.example.hotelbook.booking.createbooking;
 import com.example.hotelbook.booking.BookingEntity;
 import com.example.hotelbook.booking.BookingRepository;
 import com.example.hotelbook.booking.dto.BookingRq;
+import com.example.hotelbook.booking.dto.PaymentData;
 import com.example.hotelbook.guest.GuestEntity;
 import com.example.hotelbook.guest.GuestRepository;
 import com.example.hotelbook.room.RoomEntity;
@@ -12,6 +13,9 @@ import com.example.hotelbook.room.getroom.GetRoomHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.Period;
+
 @Service
 @RequiredArgsConstructor
 public class CreateBookingHandlerImpl implements CreateBookingHandler {
@@ -20,6 +24,7 @@ public class CreateBookingHandlerImpl implements CreateBookingHandler {
     private final RoomRepository roomRepository;
     private final GuestRepository guestRepository;
     private final GetRoomHandler getRoomHandler;
+    private final AccountClient accountClient;
 
     @Override
     public void addBooking(BookingRq bookingRq) {
@@ -34,15 +39,18 @@ public class CreateBookingHandlerImpl implements CreateBookingHandler {
                     .checkIn(bookingRq.checkIn())
                     .checkOut(bookingRq.checkOut()).build();
             bookingRepository.save(booking);
+            Period period = Period.between(booking.getCheckIn(), (booking.getCheckOut()));
+            int cost = (int) room.getPrice() * Math.abs(period.getDays());
+            payForBooking(cost);
         }
     }
 
-    public void payForBooking(){
-
+    public void payForBooking(int cost) {
+        accountClient.tryToMakePayment(new PaymentData("12345678", BigDecimal.valueOf(cost)));
     }
-    public void somethingHappen(LocationAndDate locationAndDate){
+
+    public void somethingHappen(LocationAndDate locationAndDate) {
         getRoomHandler.getBookedRooms(locationAndDate);
     }
-
 
 }
