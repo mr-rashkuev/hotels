@@ -2,12 +2,11 @@ package com.example.hotelbook.room.getroom;
 
 import com.example.hotelbook.room.RoomEntity;
 import com.example.hotelbook.room.RoomRepository;
-import com.example.hotelbook.room.dto.BookedRoom;
-import com.example.hotelbook.room.dto.LocationAndDate;
-import com.example.hotelbook.room.dto.RoomAvailableRs;
-import com.example.hotelbook.room.dto.RoomRs;
+import com.example.hotelbook.room.RoomSpecification;
+import com.example.hotelbook.room.dto.*;
 import com.example.hotelbook.room.mapper.RoomMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -33,6 +32,15 @@ public class GetRoomHandlerImpl implements GetRoomHandler {
         return roomRepository.findAll()
                 .stream()
                 .map(roomMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<RoomRs> findAllWithFilters(String city, double price){
+        return roomRepository.findAll(
+                Specification.where(
+                        RoomSpecification.inThatCity(city))
+                        .and(RoomSpecification.priceLessThan(price)))
+                .stream().map(roomMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -70,5 +78,12 @@ public class GetRoomHandlerImpl implements GetRoomHandler {
             }
         }
         return roomForBooking;
+    }
+
+    @Override
+    public List<RoomRs> getByPriceAndCity(FilterByPriceAndCity filter) {
+        return roomRepository.findByPriceAndCity(filter.low(), filter.high(),filter.city()).stream()
+                .map(roomMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

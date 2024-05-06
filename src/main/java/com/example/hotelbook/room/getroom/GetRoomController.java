@@ -1,5 +1,6 @@
 package com.example.hotelbook.room.getroom;
 
+import com.example.hotelbook.room.dto.FilterByPriceAndCity;
 import com.example.hotelbook.room.dto.LocationAndDate;
 import com.example.hotelbook.room.dto.RoomAvailableRs;
 import com.example.hotelbook.room.dto.RoomRs;
@@ -33,5 +34,10 @@ public class GetRoomController {
     @GetMapping("/city")
     public List<RoomAvailableRs> getByCity(@RequestParam String city){
         return getRoomHandler.getRoomsByCity(city);
+    }
+
+    @GetMapping("/price")
+    public List<RoomRs> getByPriceFilter(@RequestBody FilterByPriceAndCity filter){
+        return getRoomHandler.getByPriceAndCity(filter);
     }
 }

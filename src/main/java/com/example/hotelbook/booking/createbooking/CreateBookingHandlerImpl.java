@@ -9,6 +9,7 @@ import com.example.hotelbook.guest.GuestRepository;
 import com.example.hotelbook.room.RoomEntity;
 import com.example.hotelbook.room.RoomRepository;
 import com.example.hotelbook.room.dto.LocationAndDate;
+import com.example.hotelbook.room.dto.RoomRs;
 import com.example.hotelbook.room.getroom.GetRoomHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -41,16 +42,12 @@ public class CreateBookingHandlerImpl implements CreateBookingHandler {
             bookingRepository.save(booking);
             Period period = Period.between(booking.getCheckIn(), (booking.getCheckOut()));
             int cost = (int) room.getPrice() * Math.abs(period.getDays());
-            payForBooking(cost);
+            payForBooking(bookingRq.accountNumber(), cost);
         }
     }
 
-    public void payForBooking(int cost) {
-        accountClient.tryToMakePayment(new PaymentData("12345678", BigDecimal.valueOf(cost)));
-    }
-
-    public void somethingHappen(LocationAndDate locationAndDate) {
-        getRoomHandler.getBookedRooms(locationAndDate);
+    public void payForBooking(String accountNumber, int cost) {
+        accountClient.tryToMakePayment(new PaymentData(accountNumber, BigDecimal.valueOf(cost)));
     }
 
 }

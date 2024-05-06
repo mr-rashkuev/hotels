@@ -6,6 +6,7 @@ public record BookingRq(
         Long room,
         Long guest,
         LocalDate checkIn,
-        LocalDate checkOut
+        LocalDate checkOut,
+        String accountNumber
 ) {
 }

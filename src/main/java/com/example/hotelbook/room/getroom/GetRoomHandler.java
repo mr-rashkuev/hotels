@@ -1,9 +1,6 @@
 package com.example.hotelbook.room.getroom;
 
-import com.example.hotelbook.room.dto.BookedRoom;
-import com.example.hotelbook.room.dto.LocationAndDate;
-import com.example.hotelbook.room.dto.RoomAvailableRs;
-import com.example.hotelbook.room.dto.RoomRs;
+import com.example.hotelbook.room.dto.*;
 
 import java.util.List;
 
@@ -18,5 +15,7 @@ public interface GetRoomHandler {
     List<RoomAvailableRs> getRoomsByCity(String city);
 
     List<RoomAvailableRs> getAvailableRooms(LocationAndDate locationAndDate);
+
+    List<RoomRs> getByPriceAndCity(FilterByPriceAndCity filter);
 
 }
